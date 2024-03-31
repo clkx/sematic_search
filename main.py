@@ -43,18 +43,20 @@ async def read_item(id: str):
     raise HTTPException(status_code=404, detail="Item not found")
 
 
-@app.get("/items/name/{name}", response_model=List[GeneratedMusic])
-async def read_items_by_name(name: str):
-    cursor = collection.find({"name": {'$regex':name}}).limit(5)
-    items = await cursor.to_list(length=None)
-    if items:
-        return items
-    raise HTTPException(status_code=404, detail="Item not found")
+
+# # 關鍵字搜尋，建議不要用(非原始用途)
+# @app.get("/items/name/{name}", response_model=List[GeneratedMusic])
+# async def read_items_by_name(name: str):
+#     cursor = collection.find({"name": {'$regex':name}}).limit(5)
+#     items = await cursor.to_list(length=None)
+#     if items:
+#         return items
+#     raise HTTPException(status_code=404, detail="Item not found")
 
 
 @app.get("/ssearch/name/{name}", response_model=List[GeneratedMusic])
 def semantic_search_by_name(name: str):
-    items = ss_by_prompt(name)
+    items = ss_by_name(name)
     if items:
         return items
     raise HTTPException(status_code=404, detail="Item not found")
