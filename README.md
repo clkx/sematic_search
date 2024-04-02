@@ -1,4 +1,4 @@
-# Music Genre Classification with FastAPI
+# Semantic Search for AI Generate Music with FastAPI
 
 Access data with mongoDB using FastAPI as backend.
 * Store AI generate music with embedded prompt and audio.
